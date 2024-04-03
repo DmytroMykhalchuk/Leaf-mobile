@@ -1,9 +1,11 @@
-import { thunk } from 'redux-thunk';
 import appReducer from './app/appReducer';
+import userReducer from './user/userReducer';
 import { applyMiddleware, combineReducers, compose, legacy_createStore as createStore } from 'redux';
+import { thunk } from 'redux-thunk';
 
 let rootReducer = combineReducers({
    app: appReducer,
+   user: userReducer,
 });
 
 // @ts-ignore

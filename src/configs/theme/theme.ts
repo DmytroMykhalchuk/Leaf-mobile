@@ -7,6 +7,7 @@ export const globalTheme = createConfig({
         ...config.tokens,
         colors: {
             ...config.tokens.colors,
+            lightPaperColor: '#fff',
         },
 
         fontSizes: {
