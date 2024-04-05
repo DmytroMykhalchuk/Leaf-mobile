@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppStateType, InferActionsTypes } from '../store';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -12,11 +11,7 @@ const TOGGLE_THEME_MODE = 'app/TOGGLE_THEME_MODE';
 
 const REDIRECT_TO = 'app/REDIRECT_TO';
 
-const SET_INTERESTS = 'app/SET_INTERESTS';
-const SET_NOTIFICATION = 'app/SET_NOTIFICATION';
-
 const REMOVE_REDIRECT = 'app/REMOVE_REDIRECT';
-const REMOVE_NOTIFICATION = 'app/REMOVE_NOTIFICATION';
 
 const initialState = {
    isFetching: false,

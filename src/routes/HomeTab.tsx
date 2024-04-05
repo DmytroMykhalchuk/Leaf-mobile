@@ -9,8 +9,6 @@ export type HomeTabRootStackList = {
     AboutScreen: undefined;
 };
 
-export type HomeTabTypes = 'HomeScreen' | 'AboutScreen';
-
 const Screen = createNativeStackNavigator<HomeTabRootStackList>();
 
 type HomeTabProps = StackScreenProps<TabAppRootStackParamList, 'HomeTab'>;
