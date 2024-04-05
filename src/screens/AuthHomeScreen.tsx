@@ -13,9 +13,14 @@ type AuthHomeScreenType = StackScreenProps<AuthRootStackList, 'AuthHomeScreen'>
 
 export const AuthHomeScreen: React.FC<AuthHomeScreenType> = ({ navigation }) => {
 
+    const navigateToCreateAccount = (email = undefined) => {
+        navigation.push('AuthCreateAccountScreen', { email });
+    };
+
     const onNavigateToTerms = () => {
         navigation.push('TermsScreen');
     };
+
     const onNavigateToPrivacy = () => {
         navigation.push('PrivacyScreen');
     };
@@ -31,6 +36,7 @@ export const AuthHomeScreen: React.FC<AuthHomeScreenType> = ({ navigation }) => 
                 <HomeFooter
                     onNavigateToTerms={onNavigateToTerms}
                     onNavigateToPrivacy={onNavigateToPrivacy}
+                    onNavigateToCreateAccount={navigateToCreateAccount}
                 />
             </Box>
         </VStack>

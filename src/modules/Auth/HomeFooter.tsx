@@ -6,9 +6,10 @@ import { GoogleIcon } from "../Icons/GoogleIcon";
 type HomeFooterType = {
     onNavigateToTerms: () => void;
     onNavigateToPrivacy: () => void;
+    onNavigateToCreateAccount: () => void;
 };
 
-export const HomeFooter: React.FC<HomeFooterType> = ({ onNavigateToPrivacy, onNavigateToTerms }) => {
+export const HomeFooter: React.FC<HomeFooterType> = ({ onNavigateToPrivacy, onNavigateToTerms, onNavigateToCreateAccount }) => {
     const iconHeight = 24;
 
     return (
@@ -20,7 +21,7 @@ export const HomeFooter: React.FC<HomeFooterType> = ({ onNavigateToPrivacy, onNa
                 </ButtonIcon>
                 <ButtonText>Continue with Google</ButtonText>
             </Button>
-            <Button sx={styles.buttonCreateAccont}>
+            <Button sx={styles.buttonCreateAccont} onPress={onNavigateToCreateAccount}>
                 <ButtonText>Create Account</ButtonText>
             </Button>
             <Box>
@@ -46,16 +47,21 @@ const styles = {
         pb: 16,
     },
     buttonGoogle: {
-        bgColor: '$amber500',
+        borderColor: '$black',
+        borderWidth: 1,
+        bgColor: '$orange300',
         gap: 16,
         alignItems: 'center',
         justifyContent: 'center',
+        color: '$black',
         ':active': {
-            bgColor: '$amber600',
+            bgColor: '$orange400',
         },
     },
     buttonCreateAccont: {
         bgColor: '$info400',
+        borderColor: '$black',
+        borderWidth: 1,
         ':active': {
             bgColor: '$info500',
         }
