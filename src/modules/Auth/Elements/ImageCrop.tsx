@@ -13,7 +13,7 @@ import {
     HStack,
     Image,
     Pressable
-    } from '@gluestack-ui/themed';
+} from '@gluestack-ui/themed';
 import { BadgeIcon, BadgeText, VStack } from '@gluestack-ui/themed';
 import { croppingConfig } from '../../../configs/auth/cropping';
 import { StyleSxProps } from '../../../constants/layout';
@@ -50,7 +50,7 @@ export const ImageCrop: React.FC<ImageCropType> = ({ }) => {
 
     return (
         <>
-            <HStack justifyContent="center">
+            <HStack sx={styles.wrapper}>
                 <Pressable onPress={toggleSheet} position="absolute">
                     <Badge sx={styles.badge}>
                         <BadgeIcon as={() => <MCIcon name="camera" size={16} color={'#fff'} />} />
@@ -93,6 +93,11 @@ export const ImageCrop: React.FC<ImageCropType> = ({ }) => {
 };
 
 const styles = {
+    wrapper: {
+        height: 80,
+        justifyContent: 'center',
+    },
+
     badge: {
         width: 30,
         height: 30,
@@ -110,9 +115,9 @@ const styles = {
 
     avatarPlaceholder: {
         borderRadius: '$full',
-        width: 80,
+        height: 80,
         aspectRatio: 1,
         bgColor: "$backgroundLight600",
         overflow: "hidden",
-    }
+    },
 } as StyleSxProps;

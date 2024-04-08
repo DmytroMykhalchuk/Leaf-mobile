@@ -5,6 +5,7 @@ import { TermsScreen } from '../screens/TermsScreen';
 import { AuthCreateAccountScreen } from '../screens/AuthCreateAccountScreen';
 import { ScreenHeader } from '../modules/Layout/ScreenHeader';
 import { HeaderLeftElement } from '../modules/Auth/HeaderLeftElement';
+import { AuthConfirmEmail } from '../screens/AuthConfirmEmail';
 
 export type AuthRootStackList = {
     AuthHomeScreen: undefined;
@@ -13,6 +14,7 @@ export type AuthRootStackList = {
     AuthCreateAccountScreen: {
         email?: string;
     };
+    AuthConfirmEmail: undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthRootStackList>();
@@ -28,8 +30,7 @@ export const AuthRoutes: React.FC<AuthRoutesType> = ({ }) => {
                 headerShown: true,
                 animation: 'fade_from_bottom',
             }}
-            // initialRouteName='AuthHomeScreen'
-            initialRouteName='AuthCreateAccountScreen'
+            initialRouteName='AuthHomeScreen'
         >
             <Stack.Screen
                 name="AuthHomeScreen"
@@ -55,6 +56,14 @@ export const AuthRoutes: React.FC<AuthRoutesType> = ({ }) => {
                 component={AuthCreateAccountScreen}
                 options={{
                     header: () => <ScreenHeader title='Create account' leftSection={<HeaderLeftElement />} />
+                }}
+            />
+
+            <Stack.Screen
+                name="AuthConfirmEmail"
+                component={AuthConfirmEmail}
+                options={{
+                    header: () => <ScreenHeader title='Confirm email' leftSection={<HeaderLeftElement />} />
                 }}
             />
         </Stack.Navigator>

@@ -2,6 +2,7 @@ import { Box, Button, ButtonIcon, ButtonText, Heading, Text, VStack } from "@glu
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSxProps } from "../../constants/layout";
 import { GoogleIcon } from "../Icons/GoogleIcon";
+import { GoogleButton } from "./Elements/GoogleButton";
 
 type HomeFooterType = {
     onNavigateToTerms: () => void;
@@ -15,12 +16,7 @@ export const HomeFooter: React.FC<HomeFooterType> = ({ onNavigateToPrivacy, onNa
     return (
         <VStack space="md" sx={styles.mainWrapper}>
             <Heading textAlign="center">It's for free</Heading>
-            <Button sx={styles.buttonGoogle}>
-                <ButtonIcon height={iconHeight}>
-                    <GoogleIcon height={iconHeight} />
-                </ButtonIcon>
-                <ButtonText>Continue with Google</ButtonText>
-            </Button>
+            <GoogleButton onGoogle={() => { }} />
             <Button sx={styles.buttonCreateAccont} onPress={onNavigateToCreateAccount}>
                 <ButtonText>Create Account</ButtonText>
             </Button>
