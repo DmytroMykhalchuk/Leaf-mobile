@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "136560295788",
+    "project_id": "portfollio-411507",
+    "storage_bucket": "portfollio-411507.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136560295788:android:5bbb99d577746fc3c6fd49",
+        "android_client_info": {
+          "package_name": "com.leaf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136560295788-4amoliig510k48baaoc6n0qroj6t2j8p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.leaf",
+            "certificate_hash": "e6195e9883597d2c2b6062fccd57c48eca018527"
+          }
+        },
+        {
+          "client_id": "136560295788-7kvlva7fsji2n1nciafvipgo6jd1hbmm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvW1hZET64dU0GHn8O7b3zpGRRSxGBUj8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136560295788-7kvlva7fsji2n1nciafvipgo6jd1hbmm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
