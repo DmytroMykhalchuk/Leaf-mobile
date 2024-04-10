@@ -3,23 +3,26 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StyleSxProps } from "../../constants/layout";
 import { GoogleIcon } from "../Icons/GoogleIcon";
 import { GoogleButton } from "./Elements/GoogleButton";
+import { GoogleUserResponse } from "../../store/auth/authTypes";
 
 type HomeFooterType = {
     onNavigateToTerms: () => void;
     onNavigateToPrivacy: () => void;
     onNavigateToCreateAccount: () => void;
+    googleUserHandle: (user: GoogleUserResponse) => void;
 };
 
-export const HomeFooter: React.FC<HomeFooterType> = ({ onNavigateToPrivacy, onNavigateToTerms, onNavigateToCreateAccount }) => {
-    const iconHeight = 24;
-
+export const HomeFooter: React.FC<HomeFooterType> = ({ onNavigateToPrivacy, onNavigateToTerms, onNavigateToCreateAccount, googleUserHandle }) => {
     return (
         <VStack space="md" sx={styles.mainWrapper}>
             <Heading textAlign="center">It's for free</Heading>
-            <GoogleButton onGoogle={() => { }} />
+
+            <GoogleButton googleHandle={googleUserHandle} />
+            
             <Button sx={styles.buttonCreateAccont} onPress={onNavigateToCreateAccount}>
                 <ButtonText>Create Account</ButtonText>
             </Button>
+
             <Box>
                 <Text textAlign="center">
                     By continiung, you accept our&nbsp;
@@ -66,4 +69,4 @@ const styles = {
         color: '$info400',
         textDecorationLine: 'underline',
     },
-} as StyleSxProps
+} as StyleSxProps;

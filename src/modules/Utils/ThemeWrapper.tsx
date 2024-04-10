@@ -11,7 +11,7 @@ type ThemeWrapperType = {
 };
 
 export const ThemeWrapper: React.FC<ThemeWrapperType> = ({ children }) => {
-    const [isInited, setIsInited] = useState(true);
+    const [isInited, setIsInited] = useState(false);
 
     const isDarkMode = useSelector(getThemeMode) === darkMode;
 

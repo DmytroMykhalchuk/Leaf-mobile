@@ -7,7 +7,7 @@ import { UIFullScreenLoader } from '../UI/UIFullScreenLoader';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-const initLimit = 1;
+const initLimit = 2;
 
 type InitComponentType = {
    onInitApp: () => void
@@ -29,6 +29,7 @@ export const InitComponent: React.FC<InitComponentType> = ({ onInitApp }) => {
 
    const handleAuthorization = async () => {
       const token = await getDataFromStorage(tokenStorageKey);
+
       if (token) {
          dispatch(authorizeSession());
       }

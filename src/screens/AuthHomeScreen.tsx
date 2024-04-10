@@ -5,6 +5,13 @@ import { HomeFooter } from '../modules/Auth/HomeFooter';
 import { HomeSlider } from '../modules/Auth/HomeSlider';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SxProps } from '@gluestack-style/react/lib/typescript/types';
+import { useEffect } from 'react';
+import { getDataFromStorage } from '../utils/getDataFromStorage';
+import { unverifiedEmailStorageKey } from '../constants/storage';
+import { useDispatch } from 'react-redux';
+import { checkUverifiedEmail, loginByGoogle } from '../store/auth/authReducer';
+import { saveToStorage } from '../utils/saveToStorage';
+import { GoogleUserResponse } from '../store/auth/authTypes';
 
 const window = Dimensions.get('window');
 const windowHeight = window.height;
@@ -12,9 +19,18 @@ const windowHeight = window.height;
 type AuthHomeScreenType = StackScreenProps<AuthRootStackList, 'AuthHomeScreen'>
 
 export const AuthHomeScreen: React.FC<AuthHomeScreenType> = ({ navigation }) => {
+    const dispatch: any = useDispatch();
 
-    const navigateToCreateAccount = (email = undefined) => {
-        navigation.push('AuthCreateAccountScreen', { email });
+    useEffect(() => {
+        dispatch(checkUverifiedEmail(navigateToConfirmation))
+    }, []);
+
+    const navigateToConfirmation = () => {
+        navigation.push('AuthConfirmEmail');
+    };
+
+    const navigateToCreateAccount = () => {
+        navigation.push('AuthCreateAccountScreen');
     };
 
     const onNavigateToTerms = () => {
@@ -23,6 +39,10 @@ export const AuthHomeScreen: React.FC<AuthHomeScreenType> = ({ navigation }) => 
 
     const onNavigateToPrivacy = () => {
         navigation.push('PrivacyScreen');
+    };
+
+    const googleUserHandle = (user: GoogleUserResponse) => {
+        dispatch(loginByGoogle(user, navigateToCreateAccount));
     };
 
     return (
@@ -36,6 +56,7 @@ export const AuthHomeScreen: React.FC<AuthHomeScreenType> = ({ navigation }) => 
                 <HomeFooter
                     onNavigateToTerms={onNavigateToTerms}
                     onNavigateToPrivacy={onNavigateToPrivacy}
+                    googleUserHandle={googleUserHandle}
                     onNavigateToCreateAccount={navigateToCreateAccount}
                 />
             </Box>

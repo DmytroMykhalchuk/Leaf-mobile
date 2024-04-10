@@ -7,18 +7,16 @@ import { EmailTimerField } from "./EmailTimerField";
 
 type EmailConfrimHeaderType = {
     sendCode: () => void;
+    email: string | null;
 };
 
-export const EmailConfrimHeader: React.FC<EmailConfrimHeaderType> = ({ sendCode }) => {
+export const EmailConfrimHeader: React.FC<EmailConfrimHeaderType> = ({ sendCode, email }) => {
     const [canSendCode, setCanSendCode] = useState(true);
 
     useEffect(() => {
         if (canSendCode) {
-
         }
     }, [canSendCode]);
-
-
 
     const onSendCode = () => {
         setCanSendCode(false);
@@ -39,7 +37,7 @@ export const EmailConfrimHeader: React.FC<EmailConfrimHeaderType> = ({ sendCode 
                 <Box flex={1}>
                     <UIFormControl>
                         <Input sx={styles.input} isReadOnly>
-                            <InputField value={'values.email'} />
+                            <InputField value={email} />
                         </Input>
                     </UIFormControl>
                 </Box>

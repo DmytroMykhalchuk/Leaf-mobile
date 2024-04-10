@@ -14,15 +14,19 @@ import {
     Image,
     Pressable
 } from '@gluestack-ui/themed';
-import { BadgeIcon, BadgeText, VStack } from '@gluestack-ui/themed';
+import { BadgeIcon } from '@gluestack-ui/themed';
 import { croppingConfig } from '../../../configs/auth/cropping';
 import { StyleSxProps } from '../../../constants/layout';
 import { useState } from 'react';
+import { Text } from '@gluestack-ui/themed';
 
 type ImageCropType = {
+    onChangeAvatar: (avatar: ImageOrVideo) => void;
+    error?: string;
+    handleChange: (trigger: string) => void;
 };
 
-export const ImageCrop: React.FC<ImageCropType> = ({ }) => {
+export const ImageCrop: React.FC<ImageCropType> = ({ handleChange, onChangeAvatar, error }) => {
     const [isOpenSheet, setIsOpenSheet] = useState(false);
     const [savedIamge, setSavedIamge] = useState(null as null | ImageOrVideo)
 
@@ -34,7 +38,9 @@ export const ImageCrop: React.FC<ImageCropType> = ({ }) => {
         ImagePicker.openCamera({
             ...croppingConfig.camera
         }).then(image => {
-            console.log(image);
+            setSavedIamge(image)
+            onChangeAvatar(image)
+            handleChange('')
         });
     };
 
@@ -45,6 +51,8 @@ export const ImageCrop: React.FC<ImageCropType> = ({ }) => {
             ...croppingConfig.gallery
         }).then(image => {
             setSavedIamge(image)
+            onChangeAvatar(image)
+            handleChange('')
         });
     };
 
@@ -67,6 +75,7 @@ export const ImageCrop: React.FC<ImageCropType> = ({ }) => {
                     </Box >
                 </Pressable>
             </HStack>
+            {error && <Text textAlign='center' color='$error400'>{error}</Text>}
             <Actionsheet
                 isOpen={isOpenSheet}
                 onClose={toggleSheet}

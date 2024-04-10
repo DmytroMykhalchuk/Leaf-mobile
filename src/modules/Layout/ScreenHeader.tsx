@@ -1,18 +1,19 @@
-import { Box, HStack, Heading } from "@gluestack-ui/themed";
-import { StyleSxProps } from "../../constants/layout";
-import { BackIcon } from "./Elements/BackIcon";
+import { BackIcon } from './Elements/BackIcon';
+import { Box, Heading, HStack } from '@gluestack-ui/themed';
+import { StyleSxProps } from '../../constants/layout';
 
 type ScreenHeaderType = {
     title: string;
     leftSection?: JSX.Element;
+    backHandle?: () => void;
 };
 
-export const ScreenHeader: React.FC<ScreenHeaderType> = ({ title, leftSection }) => {
+export const ScreenHeader: React.FC<ScreenHeaderType> = ({ title, leftSection, backHandle }) => {
 
     return (
         <HStack sx={styles.wrapper}>
             <Box sx={styles.sideElements}>
-                <BackIcon />
+                <BackIcon backHandle={backHandle}/>
             </Box>
             <Box flex={6}>
                 <Heading textAlign="center">{title}</Heading>

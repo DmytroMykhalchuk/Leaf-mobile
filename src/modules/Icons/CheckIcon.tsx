@@ -7,7 +7,7 @@ type CheckIconType = {
 };
 
 export const CheckIcon: React.FC<CheckIconType> = ({ isChecked }) => {
-    const bgColor = isChecked ? '$lime400' : '$light200"';
+    const bgColor = isChecked ? '$lime400' : '$light200';
 
     return (
         <Badge sx={styles.badge} bgColor={bgColor}>

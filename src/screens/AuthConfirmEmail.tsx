@@ -7,6 +7,7 @@ import { VStack } from '@gluestack-ui/themed';
 type AuthConfirmEmailType = StackScreenProps<AuthRootStackList, 'AuthConfirmEmail'>;
 
 export const AuthConfirmEmail: React.FC<AuthConfirmEmailType> = ({ }) => {
+
     return (
         <VStack space='md' sx={styles.wrapper}>
             <EmailConfirmation />

@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const getDataFromStorage = async (key: string) => {
+export const deleteDataFormStorage = async (key: string) => {
     try {
-        return await AsyncStorage.getItem(key);
+        await AsyncStorage.removeItem(key);
     } catch (error) {
         console.error({ error })
     }

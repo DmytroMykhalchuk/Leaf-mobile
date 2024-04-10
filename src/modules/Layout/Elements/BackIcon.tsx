@@ -1,16 +1,18 @@
 import MIcon from 'react-native-vector-icons/MaterialIcons';
-import { CustomButtonIcon } from '../../Common/CustomButtonIcon';
 import { Button } from '@gluestack-ui/themed';
+import { CustomButtonIcon } from '../../Common/CustomButtonIcon';
 import { useNavigation } from '@react-navigation/native';
 
 type BackIconType = {
+    backHandle?: () => void;
 };
 
-export const BackIcon: React.FC<BackIconType> = ({ }) => {
+export const BackIcon: React.FC<BackIconType> = ({ backHandle }) => {
     const navigation = useNavigation();
 
     const onBack = () => {
         navigation.goBack();
+        backHandle && backHandle();
     };
 
     const iconSize = 20;

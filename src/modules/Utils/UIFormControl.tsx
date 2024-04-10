@@ -29,10 +29,10 @@ export const UIFormControl: React.FC<UIFormControlType> = ({ label, children, he
                 </FormControlHelper>
             }
             {
-                true &&
+                error &&
                 <FormControlError>
                     <FormControlErrorText>
-                        Choose one time slot for the meeting
+                       {error}
                     </FormControlErrorText>
                 </FormControlError>
             }

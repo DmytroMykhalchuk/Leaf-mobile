@@ -1,10 +1,12 @@
 import { Box, Heading, Input, InputField, InputIcon, InputSlot, VStack } from "@gluestack-ui/themed";
-import { TextInput } from "react-native-gesture-handler";
 import { ImageCrop } from "./ImageCrop";
 import { UIFormControl } from "../../Utils/UIFormControl";
 import { CheckIcon } from "../../Icons/CheckIcon";
 import { StyleSxProps } from "../../../constants/layout";
 import { inputStyles } from "../../../assets/styles/inputStyle";
+import { NicknameField } from "./NicknameField";
+import { EmailField } from "./EmailField";
+import { ImageOrVideo } from "react-native-image-crop-picker";
 
 type AccountDataType = {
     values: {
@@ -14,43 +16,35 @@ type AccountDataType = {
     errors: {
         email?: string;
         name?: string;
+        avatar?: string;
     },
     isEmailVerified: boolean;
     handleChange: any;
+    onChangeAvatar: (avatar: ImageOrVideo) => void;
 };
 
-export const AccountData: React.FC<AccountDataType> = ({ handleChange, values, errors, isEmailVerified }) => {
+export const AccountData: React.FC<AccountDataType> = ({ handleChange, values, errors, isEmailVerified, onChangeAvatar }) => {
     return (
         <VStack space="lg">
             <Box>
-                <ImageCrop />
+                <ImageCrop
+                    onChangeAvatar={onChangeAvatar}
+                    handleChange={handleChange('avatar')}
+                    error={errors.avatar}
+                />
             </Box>
             <VStack px={'$4'} space={"lg"}>
-
-                <UIFormControl
-                    label="Nickname"
+                <NicknameField
+                    name={values.name}
                     error={errors.name}
-                >
-                    <Input sx={styles.input} >
-                        <InputField onChangeText={handleChange('name')} value={values.name} />
-                        <InputSlot ml={130}>
-                            <InputIcon sx={styles.inputIcon} ><CheckIcon /></InputIcon>
-                        </InputSlot>
-                    </Input>
-                </UIFormControl>
-
-                <UIFormControl
-                    label="Email"
+                    onChange={handleChange('name')}
+                />
+                <EmailField
+                    email={values.email}
                     error={errors.email}
-                >
-                    <Input sx={styles.input} >
-                        <InputField onChangeText={handleChange('email')} value={values.email} />
-                        <InputSlot ml={130}>
-                            <InputIcon sx={styles.inputIcon} ><CheckIcon isChecked={isEmailVerified} /></InputIcon>
-                        </InputSlot>
-                    </Input>
-                </UIFormControl>
-
+                    onChange={handleChange('email')}
+                    isEmailVerified={isEmailVerified}
+                />
             </VStack>
         </VStack>
     );

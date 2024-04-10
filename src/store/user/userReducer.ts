@@ -1,13 +1,21 @@
 import { AppStateType, InferActionsTypes } from '../store';
 import { Dispatch } from 'redux';
 import { ThunkAction, thunk } from 'redux-thunk';
+import { ProfileType } from './userTypes';
+import { deleteDataFormStorage } from '../../utils/deleteDataFormStorage';
+import { tokenStorageKey } from '../../constants/storage';
+import { removeAccessToken } from '../../api/api';
 
 const TOGGLE_FATCHING = 'user/TOGGLE_FATCHING';
 const AUTHORIZE_SESSION = 'user/AUTHORIZE_SESSION';
 
+const SET_PROFILE = 'user/SET_PROFILE';
+const LOGOUT = 'user/LOGOUT';
+
 const initialState = {
    isFetching: false,
    isAuthorized: false,
+   profile: null as null | ProfileType,
 };
 
 type StateType = typeof initialState;
@@ -25,7 +33,22 @@ const userReducer = (state = initialState, action: ActionsTypes): StateType => {
          return {
             ...state,
             isAuthorized: true,
-         }
+         };
+      }
+
+      case SET_PROFILE: {
+         return {
+            ...state,
+            profile: action.profile,
+         };
+      }
+
+      case LOGOUT: {
+         return {
+            ...state,
+            isAuthorized: false,
+            profile: null,
+         };
       }
 
       default: return state;
@@ -38,6 +61,8 @@ export type DispatchType = Dispatch<ActionsTypes>;
 const actions = {
    toggleFetching: () => { return { type: TOGGLE_FATCHING } as const; },
    authorizeSession: () => { return { type: AUTHORIZE_SESSION } as const; },
+   setProfile: (profile: ProfileType) => { return { type: SET_PROFILE, profile } as const; },
+   logout: () => { return { type: LOGOUT } as const; },
 };
 
 type ThunksTypes = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
@@ -48,9 +73,23 @@ export const toggleFetchingApp = (): ThunksTypes => {
    };
 };
 
+export const initProfile = (profile: ProfileType): ThunksTypes => {
+   return async (dispatch) => {
+      dispatch(actions.setProfile(profile));
+   };
+};
+
 export const authorizeSession = (): ThunksTypes => {
    return async (dispatch) => {
       dispatch(actions.authorizeSession());
+   };
+};
+
+export const logout = (): ThunksTypes => {
+   return async (dispatch) => {
+      deleteDataFormStorage(tokenStorageKey);
+      removeAccessToken();
+      dispatch(actions.logout());
    };
 };
 

@@ -9,13 +9,13 @@ type EmailTimerFieldType = {
 
 export const EmailTimerField: React.FC<EmailTimerFieldType> = ({ isActived, deactivate }) => {
     const isRunningRef = useRef(false);
-    
+
     const [timeLeft, setTimeLeft] = useState(0);
 
     useEffect(() => {
         if (isActived) {
             if (timeLeft <= 0 && !isRunningRef.current) {
-                setTimeLeft(authConfig.sendCodeAgainAfter-50);
+                setTimeLeft(authConfig.sendCodeAgainAfter);
                 isRunningRef.current = true;
                 return;
             } else if (timeLeft <= 0 && isRunningRef.current) {
@@ -36,6 +36,7 @@ export const EmailTimerField: React.FC<EmailTimerFieldType> = ({ isActived, deac
     if (!isActived) {
         return null;
     }
+
     return (
         <Text size="sm">Send again in a: {timeLeft}s</Text>
     );
