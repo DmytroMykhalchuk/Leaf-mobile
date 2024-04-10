@@ -4,7 +4,7 @@ export const getDataFromStorage = async (key: string) => {
     try {
         return await AsyncStorage.getItem(key);
     } catch (error) {
-        console.log({ error })
+        console.error({ error })
     }
 
     return;

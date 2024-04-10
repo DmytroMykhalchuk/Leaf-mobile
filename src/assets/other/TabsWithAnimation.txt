@@ -1,0 +1,109 @@
+import { Box } from '@gluestack-ui/themed'
+import { HStack, Heading, Pressable, Text, VStack } from '@gluestack-ui/themed'
+import React from 'react'
+import { View, StyleSheet, ListRenderItem, Dimensions } from 'react-native'
+import { TabBarProps, Tabs } from 'react-native-collapsible-tab-view'
+import { TabName } from 'react-native-collapsible-tab-view/lib/typescript/src/types'
+import Animated, { useAnimatedStyle } from 'react-native-reanimated'
+import { StyleSxProps } from '../../constants/layout'
+
+const windowWidth = Dimensions.get('window').width;
+
+const TabBar = (props: TabBarProps<TabName>) => {
+
+  const Tabs = () => props.tabNames.map((tabName) => (
+    <Pressable
+      key={tabName}
+      sx={styles.header}
+      onPress={() => props.onTabPress(tabName)}
+    >
+      <VStack >
+        <Text textAlign='center'>
+          {(props.tabProps?.get(tabName)?.label || '') as string}
+        </Text>
+      </VStack>
+    </Pressable>
+  ));
+
+
+  const animatedStyles = useAnimatedStyle(() => {
+    const containerWidth = windowWidth * 0.8;
+    const result = containerWidth * (0.2 + 0.6 * props.indexDecimal.value) - 30;
+    return {
+      transform: [{ translateX: result, }],
+    };
+  });
+
+  return (
+    <VStack sx={styles.tabsWrapper}>
+      <HStack sx={styles.tabsRow}>
+        <Tabs />
+      </HStack >
+      <Animated.View style={[primaryStyles.box, animatedStyles]} >
+        <Box sx={styles.tabIndicator} />
+      </Animated.View>
+    </VStack>
+  );
+};
+
+const CreateAccountForm: React.FC = () => {
+  return (
+    <VStack flex={1}>
+      <Tabs.Container
+        renderTabBar={TabBar}
+        headerContainerStyle={primaryStyles.tabHeader}
+      >
+        <Tabs.Tab label={'A tab'} name="A" >
+          <Tabs.ScrollView>
+            <VStack>
+              <Heading>fdh</Heading>
+            </VStack>
+          </Tabs.ScrollView>
+        </Tabs.Tab>
+        <Tabs.Tab label={'B tab'} name="B" >
+          <Tabs.ScrollView>
+            <Text>fdsg</Text>
+          </Tabs.ScrollView>
+        </Tabs.Tab>
+      </Tabs.Container>
+    </VStack>
+  )
+}
+
+const primaryStyles = StyleSheet.create({
+  box: {
+    height: 2,
+    width: '100%',
+  },
+  tabHeader: {
+    backgroundColor: 'transparent',
+    shadowOpacity: 0,
+  },
+});
+
+const styles = {
+
+  header: {
+    width: '40%',
+  },
+  tabsWrapper: {
+    width: '100%',
+    px: '10%',
+    py: '$3',
+  },
+  tabsRow: {
+    width: '100%',
+    justifyContent: 'space-between',
+    position: 'relative',
+  },
+  tabIndicator: {
+    height: 2,
+    width: 60,
+    position: 'absolute',
+    bottom: 0,
+    bgColor: '$purple400',
+  },
+
+} as StyleSxProps;
+
+export default CreateAccountForm
