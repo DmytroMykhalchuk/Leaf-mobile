@@ -15,6 +15,8 @@ export const authApi = {
         formData.append('email', user.email);
         formData.append('is_email_notify', +user.isEmailNotify);
         formData.append('picture', picture);
+        formData.append('country', user.country);
+        formData.append('role', user.role);
 
         if (provider?.id) {
             formData.append('provider[id]', provider?.id);

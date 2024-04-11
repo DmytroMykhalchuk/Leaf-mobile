@@ -31,3 +31,13 @@ export const authSliderData: AuthSliderItem[] = [
         description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam adipisci facilis quos id nemo atque aperiam molestias, fugit impedit commodi rerum mollitia. Esse nostrum fuga hic explicabo nihil repellat eaque.',
     },
 ];
+
+export type CountryType = {
+    name: string;
+    image: string;
+};
+
+export const countries = [
+    { "name": "Ukraine", "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/UA.svg" },
+    { "name": "England", "image": "https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/ENGLAND.svg" },
+];

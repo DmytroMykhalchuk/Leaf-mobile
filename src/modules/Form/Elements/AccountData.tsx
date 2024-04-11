@@ -1,22 +1,28 @@
 import { Box, Heading, Input, InputField, InputIcon, InputSlot, VStack } from "@gluestack-ui/themed";
-import { ImageCrop } from "./ImageCrop";
+import { ImageCrop } from "../Fields/ImageCrop";
 import { UIFormControl } from "../../Utils/UIFormControl";
 import { CheckIcon } from "../../Icons/CheckIcon";
 import { StyleSxProps } from "../../../constants/layout";
 import { inputStyles } from "../../../assets/styles/inputStyle";
-import { NicknameField } from "./NicknameField";
-import { EmailField } from "./EmailField";
+import { NicknameField } from "../Fields/NicknameField";
+import { EmailField } from "../Fields/EmailField";
 import { ImageOrVideo } from "react-native-image-crop-picker";
+import { CountrySelect } from "../Fields/CountrySelect";
+import { RoleSelect } from "../Fields/RoleSelect";
 
 type AccountDataType = {
     values: {
         email: string;
         name: string;
+        country: string;
+        role: string;
     };
     errors: {
         email?: string;
         name?: string;
         avatar?: string;
+        country?: string;
+        role?: string;
     },
     isEmailVerified: boolean;
     handleChange: any;
@@ -25,7 +31,7 @@ type AccountDataType = {
 
 export const AccountData: React.FC<AccountDataType> = ({ handleChange, values, errors, isEmailVerified, onChangeAvatar }) => {
     return (
-        <VStack space="lg">
+        <VStack space="lg" pb={'$3'}>
             <Box>
                 <ImageCrop
                     onChangeAvatar={onChangeAvatar}
@@ -45,6 +51,19 @@ export const AccountData: React.FC<AccountDataType> = ({ handleChange, values, e
                     onChange={handleChange('email')}
                     isEmailVerified={isEmailVerified}
                 />
+
+                <CountrySelect
+                    country={values.country}
+                    error={errors?.country}
+                    onChange={handleChange('country')}
+                />
+
+                <RoleSelect
+                    role={values.role}
+                    error={errors.role}
+                    onChange={handleChange('role')}
+                />
+
             </VStack>
         </VStack>
     );

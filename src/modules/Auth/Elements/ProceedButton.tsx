@@ -31,7 +31,7 @@ const styles = {
     wrapper: {
         bgColor: '$green400',
         p: '$5',
-        py:'$6',
+        py: '$6',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         borderWidth: 1,

@@ -1,4 +1,4 @@
-import CreateAccountForm from '../modules/Auth/CreateAccountForm';
+import CreateAccountForm from '../modules/Form/CreateAccountForm';
 import { AuthRootStackList } from '../routes/AuthRoutes';
 import { StackScreenProps } from '@react-navigation/stack';
 import { StyleSxProps } from '../constants/layout';

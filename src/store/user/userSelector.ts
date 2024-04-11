@@ -7,3 +7,7 @@ export const getIsFetching = (state: AppStateType): boolean => {
 export const getIsAuthorized = (state: AppStateType): boolean => {
    return state.user.isAuthorized;
 };
+
+export const getProfilePicture = (state: AppStateType): string | undefined => {
+   return state.user.profile?.picture;
+};

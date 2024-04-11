@@ -12,6 +12,7 @@ import { UserTab } from './UserTab';
 import { Text } from '@gluestack-ui/themed';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MIcon from 'react-native-vector-icons/MaterialIcons';
+import { ScreenHeader } from '../modules/Layout/ScreenHeader';
 
 export type TabAppRootStackParamList = {
     HomeTab: undefined;
@@ -37,6 +38,7 @@ export const TabRoutes: React.FC<TabRoutesType> = memo(({ navigation }) => {
 
     const isDarkMode = colorMode === darkMode;
 
+    return <HomeTab />
     return (<>
         <RedirectComponent stack='App' />
         <Tab.Navigator
@@ -58,6 +60,7 @@ export const TabRoutes: React.FC<TabRoutesType> = memo(({ navigation }) => {
                 options={{
                     tabBarLabel: translation('home'),
                     tabBarIcon: ({ focused, size, color }) => <MCIcon color={color} name='home' size={size} />,
+                    header:()=><ScreenHeader title='App'/>
                 }}
             />
             <Tab.Screen name='UserTab'

@@ -5,6 +5,7 @@ import { ProfileType } from './userTypes';
 import { deleteDataFormStorage } from '../../utils/deleteDataFormStorage';
 import { tokenStorageKey } from '../../constants/storage';
 import { removeAccessToken } from '../../api/api';
+import { userApi } from '../../api/userApi';
 
 const TOGGLE_FATCHING = 'user/TOGGLE_FATCHING';
 const AUTHORIZE_SESSION = 'user/AUTHORIZE_SESSION';
@@ -82,6 +83,20 @@ export const initProfile = (profile: ProfileType): ThunksTypes => {
 export const authorizeSession = (): ThunksTypes => {
    return async (dispatch) => {
       dispatch(actions.authorizeSession());
+   };
+};
+
+export const fetchProfile = (): ThunksTypes => {
+   return async (dispatch) => {
+      dispatch(actions.toggleFetching());
+      const response = await userApi.fetchProfile();
+
+      if (response?.code === 200) {
+         dispatch(actions.setProfile(response.data))
+         dispatch(actions.authorizeSession());
+      }
+
+      dispatch(actions.toggleFetching());
    };
 };
 

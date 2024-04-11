@@ -3,3 +3,5 @@ export type ProfileType = {
     email: string;
     picture: string;
 };
+
+export type UserRoleType = 'student' | 'coach';

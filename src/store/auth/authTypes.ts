@@ -1,10 +1,13 @@
 import { ImageOrVideo } from "react-native-image-crop-picker";
+import { UserRoleType } from "../user/userTypes";
 
 export type CreateAccountType = {
     email: string;
     nickname: string;
     avatar: ImageOrVideo;
     isEmailNotify: boolean;
+    country: string;
+    role: UserRoleType;
 };
 
 export type GoogleUserResponse = {

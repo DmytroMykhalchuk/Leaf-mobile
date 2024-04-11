@@ -1,29 +1,33 @@
-import { Button, ButtonText, Heading, Pressable, Text, VStack } from '@gluestack-ui/themed'
+import { Box, VStack } from '@gluestack-ui/themed'
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, Touchable } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Tabs } from 'react-native-collapsible-tab-view'
-import { StyleSxProps } from '../../constants/layout'
-import { TabBar } from './Elements/TabBar'
+import { TabBar } from '../Auth/Elements/TabBar'
 import { Formik } from 'formik'
 import { AccountData } from './Elements/AccountData'
-import { ProceedButton } from './Elements/ProceedButton'
+import { ProceedButton } from '../Auth/Elements/ProceedButton'
 import { AccountConfig } from './Elements/AccountConfig'
 import { ImageOrVideo } from 'react-native-image-crop-picker'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { createAccount } from '../../store/auth/authReducer'
 import { GoogleSignType } from '../../store/auth/authTypes'
-import { getGoogleSign } from '../../store/auth/authSelector'
+import { UserRoleType } from '../../store/user/userTypes'
+import { authConfig } from '../../configs/auth/auth'
 
 type FormValuesType = {
   name: string;
   email: string;
   avatar: string;
+  country: string;
+  role: string;
 };
 
 type FormErrorType = {
   name?: string;
   email?: string;
   avatar?: string;
+  country?: string;
+  role?: string;
 };
 
 type CreateAccountFormType = {
@@ -56,8 +60,16 @@ const CreateAccountForm: React.FC<CreateAccountFormType> = ({ googleSign, naviga
 
     if (!avatar) {
       errors.avatar = 'Required';
-    }else{
-      
+    } else {
+
+    }
+
+    if (!values.country) {
+      errors.country = 'Required';
+    }
+
+    if (!values.role) {
+      errors.role = 'Required';
     }
 
     if (errors) {
@@ -73,23 +85,31 @@ const CreateAccountForm: React.FC<CreateAccountFormType> = ({ googleSign, naviga
       email: values.email,
       isEmailNotify: isEmailNotification,
       avatar: avatar as ImageOrVideo,
+      country: values.country,
+      role: values.role as UserRoleType,
     };
 
     dispatch(createAccount(userData, googleSign, navigateToEmailVerification))
   };
 
+  const initialValues = {
+    name: '',
+    email: googleSign.email || '',
+    isEmailNotification: true,
+    avatar: '',
+    country: authConfig.defaultCountry.toLocaleLowerCase(),
+    role: authConfig.defaultRole,
+  };
+
   const isEmailVerified = Boolean(googleSign?.id);
+
   return (
     <VStack flex={1}>
       <Formik
-        initialValues={{
-          name: '',
-          email: googleSign.email || '',
-          isEmailNotification: true,
-          avatar: '',
-        }}
+        initialValues={initialValues}
         onSubmit={onSubmit}
         validate={validation}
+        validateOnChange={false}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, }) => (
           <VStack flex={1}>
@@ -130,8 +150,5 @@ const primaryStyles = StyleSheet.create({
   },
 });
 
-const styles = {
-
-} as StyleSxProps;
 
 export default CreateAccountForm

@@ -1,6 +1,6 @@
 import { Box, CheckIcon, Checkbox, CheckboxIcon, CheckboxIndicator, CheckboxLabel, Heading, Input, InputField, InputIcon, InputSlot, VStack } from "@gluestack-ui/themed";
 import { TextInput } from "react-native-gesture-handler";
-import { ImageCrop } from "./ImageCrop";
+import { ImageCrop } from "../Fields/ImageCrop";
 import { UIFormControl } from "../../Utils/UIFormControl";
 import { StyleSxProps } from "../../../constants/layout";
 import MIcon from 'react-native-vector-icons/MaterialIcons';
