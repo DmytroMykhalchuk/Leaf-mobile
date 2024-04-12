@@ -6,9 +6,12 @@ import { deleteDataFormStorage } from '../../utils/deleteDataFormStorage';
 import { tokenStorageKey } from '../../constants/storage';
 import { removeAccessToken } from '../../api/api';
 import { userApi } from '../../api/userApi';
+import { UpdateProfileType } from '../auth/authTypes';
+import { authApi } from '../../api/authApi';
 
 const TOGGLE_FATCHING = 'user/TOGGLE_FATCHING';
 const AUTHORIZE_SESSION = 'user/AUTHORIZE_SESSION';
+const SET_EMAIL = 'user/SET_EMAIL';
 
 const SET_PROFILE = 'user/SET_PROFILE';
 const LOGOUT = 'user/LOGOUT';
@@ -52,6 +55,17 @@ const userReducer = (state = initialState, action: ActionsTypes): StateType => {
          };
       }
 
+      case SET_EMAIL: {
+         return {
+            ...state,
+            profile: state?.profile
+               ? {
+                  ...state.profile,
+                  email: action.email,
+               } : null,
+         };
+      }
+
       default: return state;
    }
 };
@@ -64,6 +78,7 @@ const actions = {
    authorizeSession: () => { return { type: AUTHORIZE_SESSION } as const; },
    setProfile: (profile: ProfileType) => { return { type: SET_PROFILE, profile } as const; },
    logout: () => { return { type: LOGOUT } as const; },
+   setEmail: (email: string) => { return { type: SET_EMAIL, email } as const; },
 };
 
 type ThunksTypes = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>;
@@ -105,6 +120,63 @@ export const logout = (): ThunksTypes => {
       deleteDataFormStorage(tokenStorageKey);
       removeAccessToken();
       dispatch(actions.logout());
+   };
+};
+
+export const updateProfile = (user: UpdateProfileType, navigateBack: Function): ThunksTypes => {
+   return async (dispatch) => {
+      dispatch(actions.toggleFetching());
+      const response = await userApi.updateProfile(user);
+
+      if (response?.code === 200) {
+         dispatch(actions.setProfile(response.data));
+         navigateBack();
+      }
+
+      dispatch(actions.toggleFetching());
+   };
+};
+
+export const verifyEmailCode = (email: string, code: number, successHandler: Function): ThunksTypes => {
+   return async (dispatch) => {
+      dispatch(actions.toggleFetching());
+      const response = await authApi.verifyEmailCode(email, code);
+
+      if (response.code === 200) {
+         dispatch(initProfile(response.data));
+         successHandler();
+      }
+
+      dispatch(actions.toggleFetching());
+   };
+};
+
+export const requestChangeEmail = (email: string): ThunksTypes => {
+   return async (dispatch) => {
+      dispatch(actions.toggleFetching());
+
+      const response = await userApi.changeEmailRequest(email);
+
+      if (response?.code === 200) {
+
+      }
+
+      dispatch(actions.toggleFetching());
+   };
+};
+
+export const confirmChangeEmailCode = (code: string, email: string, successHandler: Function): ThunksTypes => {
+   return async (dispatch) => {
+      dispatch(actions.toggleFetching());
+
+      const response = await userApi.confirmChangeEmailCode(code);
+
+      if (response?.code === 200) {
+         dispatch(actions.setEmail(email));
+         successHandler();
+      }
+
+      dispatch(actions.toggleFetching());
    };
 };
 

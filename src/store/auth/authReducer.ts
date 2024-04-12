@@ -1,14 +1,14 @@
 import { AppStateType, InferActionsTypes } from '../store';
-import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
-import { CreateAccountType, GoogleSignType, GoogleUserResponse } from './authTypes';
 import { authApi } from '../../api/authApi';
-import { saveToStorage } from '../../utils/saveToStorage';
-import { tokenStorageKey, unverifiedEmailStorageKey } from '../../constants/storage';
-import { getDataFromStorage } from '../../utils/getDataFromStorage';
-import { deleteDataFormStorage } from '../../utils/deleteDataFormStorage';
-import { saveAccessToken } from '../../api/api';
 import { authorizeSession, initProfile } from '../user/userReducer';
+import { CreateAccountType, GoogleSignType, GoogleUserResponse, UpdateProfileType } from './authTypes';
+import { deleteDataFormStorage } from '../../utils/deleteDataFormStorage';
+import { Dispatch } from 'redux';
+import { getDataFromStorage } from '../../utils/getDataFromStorage';
+import { saveAccessToken } from '../../api/api';
+import { saveToStorage } from '../../utils/saveToStorage';
+import { ThunkAction } from 'redux-thunk';
+import { unverifiedEmailStorageKey } from '../../constants/storage';
 
 const TOGGLE_FATCHING = 'user/TOGGLE_FATCHING';
 const SET_UVERIFIED_EMAIL = 'user/SET_UVERIFIED_EMAIL';

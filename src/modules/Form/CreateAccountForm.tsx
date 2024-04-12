@@ -1,18 +1,18 @@
-import { Box, VStack } from '@gluestack-ui/themed'
-import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
-import { Tabs } from 'react-native-collapsible-tab-view'
-import { TabBar } from '../Auth/Elements/TabBar'
-import { Formik } from 'formik'
-import { AccountData } from './Elements/AccountData'
-import { ProceedButton } from '../Auth/Elements/ProceedButton'
-import { AccountConfig } from './Elements/AccountConfig'
-import { ImageOrVideo } from 'react-native-image-crop-picker'
-import { useDispatch } from 'react-redux'
-import { createAccount } from '../../store/auth/authReducer'
-import { GoogleSignType } from '../../store/auth/authTypes'
-import { UserRoleType } from '../../store/user/userTypes'
-import { authConfig } from '../../configs/auth/auth'
+import React, { useState } from 'react';
+import { AccountConfig } from './Elements/AccountConfig';
+import { AccountData } from './Elements/AccountData';
+import { authConfig } from '../../configs/auth/auth';
+import { Box, VStack } from '@gluestack-ui/themed';
+import { createAccount } from '../../store/auth/authReducer';
+import { Formik } from 'formik';
+import { GoogleSignType } from '../../store/auth/authTypes';
+import { ImageOrVideo } from 'react-native-image-crop-picker';
+import { ProceedButton } from '../Auth/Elements/ProceedButton';
+import { StyleSheet } from 'react-native';
+import { TabBar } from '../Auth/Elements/TabBar';
+import { Tabs } from 'react-native-collapsible-tab-view';
+import { useDispatch } from 'react-redux';
+import { UserRoleType } from '../../store/user/userTypes';
 
 type FormValuesType = {
   name: string;
@@ -134,7 +134,11 @@ const CreateAccountForm: React.FC<CreateAccountFormType> = ({ googleSign, naviga
                 </Tabs.ScrollView>
               </Tabs.Tab>
             </Tabs.Container>
-            <ProceedButton handleSubmit={handleSubmit} />
+            <ProceedButton
+              handleSubmit={handleSubmit}
+              title='Save and continue'
+              subtitle='Form data required'
+            />
           </VStack>
         )}
       </Formik>

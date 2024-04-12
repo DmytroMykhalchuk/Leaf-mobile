@@ -45,7 +45,6 @@ export const InitComponent: React.FC<InitComponentType> = ({ onInitApp }) => {
    const getThemeMode = async () => {
       try {
          const theme = await getDataFromStorage(colorModeStorageKey);
-         console.log({ theme })
          dispatch(toggleThemeMode(theme as ThemeModeType));
       } catch (e) {
          const defaultMode = isDarkMode ? darkMode : lightMode;

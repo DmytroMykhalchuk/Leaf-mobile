@@ -94,7 +94,6 @@ const styles = {
         height: carouselOptions.height,
         width: '85%',
         borderWidth: 1,
-        borderStyle: 'solid',
         borderColor: '$black',
         padding: 12,
         borderRadius: 42,

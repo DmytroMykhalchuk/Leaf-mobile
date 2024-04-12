@@ -12,7 +12,7 @@ type EmailFieldType = {
     error?: string;
     onChange: (name: string) => void;
     email: string;
-    isEmailVerified: boolean;
+    isEmailVerified?: boolean;
 };
 
 export const EmailField: React.FC<EmailFieldType> = ({ error, onChange, email, isEmailVerified }) => {
@@ -62,7 +62,7 @@ export const EmailField: React.FC<EmailFieldType> = ({ error, onChange, email, i
         >
             <Input sx={styles.input} >
                 <InputField onChangeText={onChangeEmail} value={localEmail} />
-                <InputSlot ml={130}>
+                <InputSlot>
                     <InputIcon sx={styles.inputIcon} >
                         <CheckIcon isChecked={isActiveIcon || isEmailVerified} />
                     </InputIcon>

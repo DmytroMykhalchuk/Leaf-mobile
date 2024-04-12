@@ -17,7 +17,7 @@ export const AccountConfig: React.FC<AccountConfigType> = ({ toggleEmailNotidica
         : null;
 
     return (
-        <VStack px={'$4'} space={"lg"}>
+        <VStack px={'$3'} space={"lg"}>
 
             <Checkbox
                 value=""

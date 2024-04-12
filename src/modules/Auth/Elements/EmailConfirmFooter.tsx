@@ -1,25 +1,12 @@
-import { Text } from "@gluestack-ui/themed";
-import { GoogleButton } from "./GoogleButton";
-import { GoogleUserResponse } from "../../../store/auth/authTypes";
-import { useDispatch } from "react-redux";
-import { confirmEmailByProvider } from "../../../store/auth/authReducer";
+import { GoogleButton } from './GoogleButton';
+import { GoogleUserResponse } from '../../../store/auth/authTypes';
+import { Text } from '@gluestack-ui/themed';
 
 type EmailConfirmFooterType = {
-    uverifiedEmail: string;
+    handleGoogleUser: (user: GoogleUserResponse) => void;
 };
 
-export const EmailConfirmFooter: React.FC<EmailConfirmFooterType> = ({ uverifiedEmail }) => {
-    const dispatch: any = useDispatch();
-
-    const handleGoogleUser = (user: GoogleUserResponse) => {
-        if (user.email !== uverifiedEmail) {
-            //todo notify about different email 
-            return;
-        }
-
-        dispatch(confirmEmailByProvider(user.email, user.id));
-    };
-
+export const EmailConfirmFooter: React.FC<EmailConfirmFooterType> = ({ handleGoogleUser }) => {
     return (
         <>
             <Text>or</Text>

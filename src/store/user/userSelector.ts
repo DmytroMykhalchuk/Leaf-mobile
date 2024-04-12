@@ -11,3 +11,7 @@ export const getIsAuthorized = (state: AppStateType): boolean => {
 export const getProfilePicture = (state: AppStateType): string | undefined => {
    return state.user.profile?.picture;
 };
+
+export const getProfile = (state: AppStateType) => {
+   return state.user.profile;
+};

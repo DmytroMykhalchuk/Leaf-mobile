@@ -24,7 +24,6 @@ const styles = {
         left: '5%',
         right: '5%',
         borderWidth: 1,
-        borderStyle: 'solid',
         borderColor: '$black',
     }
 

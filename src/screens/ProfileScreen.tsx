@@ -1,73 +1,39 @@
-import { Box, Button, ButtonText, Text, VStack } from "@gluestack-ui/themed";
-import { StackScreenProps } from "@react-navigation/stack";
-import { HomeTabRootStackList } from "../routes/HomeTab";
-import { View } from "react-native";
+import { fetchProfile } from '../store/user/userReducer';
+import { getProfile } from '../store/user/userSelector';
+import { HomeTabRootStackList } from '../routes/HomeTab';
+import { ProfileContent } from '../modules/Profile/ProfileContent';
+import { ProfileFooter } from '../modules/Profile/ProfileFooter';
+import { ScrollView, VStack } from '@gluestack-ui/themed';
+import { StackScreenProps } from '@react-navigation/stack';
+import { StyleSxProps } from '../constants/layout';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 type ProfileScreenType = StackScreenProps<HomeTabRootStackList, 'ProfileScreen'>
 
 export const ProfileScreen: React.FC<ProfileScreenType> = ({ navigation }) => {
-    const onNavigate = () => {
-        navigation.goBack();
-    }
+    const profile = useSelector(getProfile);
+    const dispatch: any = useDispatch();
+
+    useEffect(() => {
+        if (!profile?.picture) {
+            dispatch(fetchProfile());
+        }
+    }, [profile]);
 
     return (
-        <>
-            <Text>ProfileScreen</Text>
-            <VStack alignItems="center" justifyContent="center" bgColor="$purple700" p={20}>
-                <Button onPress={onNavigate}>
-                    <ButtonText>back</ButtonText>
-                </Button>
+        <ScrollView sx={styles.wrapper}>
+            <VStack space="md">
+                <ProfileContent profile={profile!} />
+                <ProfileFooter navigation={navigation} />
             </VStack>
-            <VStack
-                // flex={1}
-                // alignItems="center"
-                // justifyContent="center"
-                hardShadow="4"
-            >
-                <Box
-                    sx={{
-                        // bgColor:'$violet500',
-                        width: 180,
-                        height: 130,
-                        borderWidth: 1,
-                        // borderColor:'$black',
-                        // shadowOffset:{width:-40,height:60},
-                        // p:0,
-                        // elevation: 10,
-
-                    }}
-                    // softShadow="4"
-                    // shadowOpacity={'$10'}
-                    p={12}
-                    style={{
-                        // shadowColor: '#000',
-                        // shadowOffset: { width: -4, height: 70 },
-                        // shadowOpacity: 1,
-                        // shadowRadius: 100,
-                        // elevation: 21
-                    }}
-                >
-                    {/* <Box bgColor="$green400" flex={1}>
-                        <Text>dasf</Text>
-                    </Box> */}
-                </Box>
-                <View style={{
-                    width: 180,
-                    height: 130,
-                    borderWidth: 1,
-                    shadowColor: '#000',
-                    elevation: 5,
-                }}>
-                    {/* <Box
-                        sx={{
-                            width: 400,
-                            height: 10,
-                            bgColor: '$amber300'
-                        }}
-                    /> */}
-
-                </View>
-            </VStack>
-        </>
+        </ScrollView>
     );
 };
+
+const styles = {
+    wrapper: {
+        flex: 1,
+        p: '$3',
+    },
+} as StyleSxProps;

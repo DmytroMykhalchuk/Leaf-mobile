@@ -62,7 +62,6 @@ const stylesPrimary = StyleSheet.create({
     },
     countryButton: {
         borderWidth: 1,
-        borderStyle: 'solid',
         borderRadius: 4,
         padding: 8,
         display: 'flex',

@@ -3,6 +3,7 @@ import { Image, Text, useToken } from '@gluestack-ui/themed';
 import { StyleProp, StyleSheet, View } from 'react-native';
 import { SxProps } from '@gluestack-style/react/lib/typescript/types';
 import { ViewStyle } from 'react-native';
+import { SvgUri } from 'react-native-svg';
 
 type CountrySelectItemType = {
     item: CountryType;
@@ -20,11 +21,10 @@ export const CountrySelectItem: React.FC<CountrySelectItemType> = ({ item, isBor
 
     return (
         <View style={selectButtonStyle}>
-            <Image
-                source={item.image}
-                alt='icon'
+            <SvgUri
                 width={20}
-                height={20}
+                height={'100%'}
+                uri={item.image}
             />
             <Text sx={textStyle}>{item.name}</Text>
         </View>
@@ -34,7 +34,6 @@ export const CountrySelectItem: React.FC<CountrySelectItemType> = ({ item, isBor
 const stylesPrimary = StyleSheet.create({
     countryButton: {
         borderWidth: 1,
-        borderStyle: 'solid',
         borderRadius: 4,
         padding: 8,
         display: 'flex',

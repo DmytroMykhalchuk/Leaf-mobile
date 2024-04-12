@@ -4,7 +4,8 @@ import { EmailConfirmFooter } from "./Elements/EmailConfirmFooter";
 import { EmailConfrimHeader } from "./Elements/EmailConfrimHeader";
 import { getUverifiedEmail } from "../../store/auth/authSelector";
 import { useDispatch, useSelector } from "react-redux";
-import { requestEmailCode, verifyEmailCode } from "../../store/auth/authReducer";
+import { confirmEmailByProvider, requestEmailCode, verifyEmailCode } from "../../store/auth/authReducer";
+import { GoogleUserResponse } from "../../store/auth/authTypes";
 
 type EmailConfirmationType = {
 };
@@ -22,6 +23,14 @@ export const EmailConfirmation: React.FC<EmailConfirmationType> = ({ }) => {
         setIsSendedCode(true);
     };
 
+    const handleGoogleUser = (user: GoogleUserResponse) => {
+        if (user.email !== uverifiedEmail) {
+            return;
+        }
+
+        dispatch(confirmEmailByProvider(user.email, user.id));
+    };
+
     const verifyCode = (code: string) => {
         uverifiedEmail && dispatch(verifyEmailCode(uverifiedEmail, +code));
     };
@@ -30,7 +39,7 @@ export const EmailConfirmation: React.FC<EmailConfirmationType> = ({ }) => {
         <>
             <EmailConfrimHeader sendCode={sendCode} email={uverifiedEmail} />
             <EmailConfirmBody isInputAvailable={isSendedCode} verifyCode={verifyCode} />
-            <EmailConfirmFooter uverifiedEmail={uverifiedEmail as string} />
+            <EmailConfirmFooter uverifiedEmail={uverifiedEmail as string} handleGoogleUser={handleGoogleUser} />
         </>
     );
 };

@@ -1,16 +1,20 @@
-import { StackNavigationProp } from "@react-navigation/stack";
-import { HomeTabRootStackList } from "../../routes/HomeTab";
 import { Badge, BadgeText, Box, Button, HStack } from "@gluestack-ui/themed";
-import { AvatarButton } from "./Elements/AvatarButton";
+import { AvatarButton } from "../../Layout/Elements/AvatarButton";
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { CustomButtonIcon } from "../Common/CustomButtonIcon";
-import { StyleSxProps } from "../../constants/layout";
+import { CustomButtonIcon } from "../../Common/CustomButtonIcon";
+import { StyleSxProps } from "../../../constants/layout";
+import { ParamListBase } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { HomeTabRootStackList } from "../../../routes/HomeTab";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 type HomeHeaderRightSectionType = {
-    navigation: StackNavigationProp<HomeTabRootStackList, 'HomeScreen'>;
+    navigator: NativeStackNavigationProp<ParamListBase, string, undefined>
 };
 
-export const HomeHeaderRightSection: React.FC<HomeHeaderRightSectionType> = ({ navigation }) => {
+export const HomeHeaderRightSection: React.FC<HomeHeaderRightSectionType> = ({ navigator }) => {
+    const navigation = navigator as StackNavigationProp<HomeTabRootStackList, 'HomeScreen'>;
+
     const onOpenNotifications = () => {
         navigation.push('NotificationScreen');
     };
@@ -31,7 +35,7 @@ export const HomeHeaderRightSection: React.FC<HomeHeaderRightSectionType> = ({ n
                     </CustomButtonIcon>
                 </Button>
             </Box>
-            <AvatarButton onOpenProfile={onOpenProfile}/>
+            <AvatarButton onOpenProfile={onOpenProfile} />
         </HStack>
     );
 };
@@ -47,7 +51,6 @@ const styles = {
         alignSelf: "flex-end",
         borderWidth: 1,
         borderColor: '$black',
-        borderStyle: 'solid',
         position: 'absolute',
         top: -6,
         right: -6,

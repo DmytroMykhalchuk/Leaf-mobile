@@ -21,12 +21,13 @@ import { useState } from 'react';
 import { Text } from '@gluestack-ui/themed';
 
 type ImageCropType = {
-    onChangeAvatar: (avatar: ImageOrVideo) => void;
     error?: string;
+    avatar?: string;
+    onChangeAvatar: (avatar: ImageOrVideo) => void;
     handleChange: (trigger: string) => void;
 };
 
-export const ImageCrop: React.FC<ImageCropType> = ({ handleChange, onChangeAvatar, error }) => {
+export const ImageCrop: React.FC<ImageCropType> = ({ handleChange, onChangeAvatar, error, avatar }) => {
     const [isOpenSheet, setIsOpenSheet] = useState(false);
     const [savedIamge, setSavedIamge] = useState(null as null | ImageOrVideo)
 
@@ -66,9 +67,9 @@ export const ImageCrop: React.FC<ImageCropType> = ({ handleChange, onChangeAvata
                     <Box sx={styles.avatarPlaceholder}
                     >
                         {
-                            savedIamge?.path && <Image
+                            (avatar || savedIamge?.path) && <Image
                                 aspectRatio={1}
-                                source={{ uri: savedIamge?.path }}
+                                source={{ uri: avatar || savedIamge?.path }}
                                 alt="avatar"
                             />
                         }

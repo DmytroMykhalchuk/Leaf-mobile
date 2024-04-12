@@ -9,13 +9,15 @@ import { EmailField } from "../Fields/EmailField";
 import { ImageOrVideo } from "react-native-image-crop-picker";
 import { CountrySelect } from "../Fields/CountrySelect";
 import { RoleSelect } from "../Fields/RoleSelect";
+import { StateEmailField } from "../Fields/StateEmailField";
 
-type AccountDataType = {
+type EditAccountType = {
     values: {
         email: string;
         name: string;
         country: string;
         role: string;
+        avatar: string;
     };
     errors: {
         email?: string;
@@ -27,9 +29,14 @@ type AccountDataType = {
     isEmailVerified: boolean;
     handleChange: any;
     onChangeAvatar: (avatar: ImageOrVideo) => void;
+    onNavigateChangeEmail: (email: string) => void;
 };
 
-export const AccountData: React.FC<AccountDataType> = ({ handleChange, values, errors, isEmailVerified, onChangeAvatar }) => {
+export const EditAccount: React.FC<EditAccountType> = ({ handleChange, values, errors, onNavigateChangeEmail, onChangeAvatar }) => {
+    const onOpenEmailConfirming = () => {
+        onNavigateChangeEmail(values.email);
+    };
+    
     return (
         <VStack space="lg" pb={'$3'}>
             <Box>
@@ -37,6 +44,7 @@ export const AccountData: React.FC<AccountDataType> = ({ handleChange, values, e
                     onChangeAvatar={onChangeAvatar}
                     handleChange={handleChange('avatar')}
                     error={errors.avatar}
+                    avatar={values.avatar}
                 />
             </Box>
             <VStack px={'$3'} space={"lg"}>
@@ -44,12 +52,12 @@ export const AccountData: React.FC<AccountDataType> = ({ handleChange, values, e
                     name={values.name}
                     error={errors.name}
                     onChange={handleChange('name')}
+                    defaultVerified
                 />
-                <EmailField
+
+                <StateEmailField
                     email={values.email}
-                    error={errors.email}
-                    onChange={handleChange('email')}
-                    isEmailVerified={isEmailVerified}
+                    onNavigateChangeEmail={onOpenEmailConfirming}
                 />
 
                 <CountrySelect

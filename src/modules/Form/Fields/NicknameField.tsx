@@ -12,11 +12,12 @@ type NicknameFieldType = {
     error?: string;
     onChange: (name: string) => void;
     name: string;
+    defaultVerified?: boolean;
 };
 
-export const NicknameField: React.FC<NicknameFieldType> = ({ error, onChange, name }) => {
+export const NicknameField: React.FC<NicknameFieldType> = ({ error, onChange, name, defaultVerified }) => {
     const [localName, setLocalName] = useState(name);
-    const [isActiveIcon, setIsActiveIcon] = useState(false);
+    const [isActiveIcon, setIsActiveIcon] = useState(defaultVerified || false);
 
     const deboucedName = useDebounce(localName);
 

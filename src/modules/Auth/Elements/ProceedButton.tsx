@@ -4,9 +4,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type ProceedButtonType = {
     handleSubmit: () => void;
+    title: string;
+    subtitle?: string;
+    iconName?: 'arrow-forward' | 'update'
 };
 
-export const ProceedButton: React.FC<ProceedButtonType> = ({ handleSubmit }) => {
+export const ProceedButton: React.FC<ProceedButtonType> = ({ handleSubmit, title, subtitle, iconName = 'arrow-forward' }) => {
 
     return (
         <Pressable
@@ -15,12 +18,12 @@ export const ProceedButton: React.FC<ProceedButtonType> = ({ handleSubmit }) => 
         >
             <HStack justifyContent="space-between" alignItems="center">
                 <Box>
-                    <Heading mb={"$2"}>Save and continue</Heading>
-                    <Text>Form data required</Text>
+                    <Heading mb={"$2"}>{title}</Heading>
+                    {subtitle && <Text>{subtitle}</Text>}
                 </Box>
 
                 <Box sx={styles.circle}>
-                    <Icon name="arrow-forward" size={26} color={'#fff'} />
+                    <Icon name={iconName} size={26} color={'#fff'} />
                 </Box>
             </HStack>
         </Pressable>

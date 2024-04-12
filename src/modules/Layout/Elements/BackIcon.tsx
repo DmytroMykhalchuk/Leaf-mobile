@@ -26,7 +26,6 @@ export const BackIcon: React.FC<BackIconType> = ({ backHandle }) => {
             onPress={onBack}
             sx={{
                 borderWidth: 1,
-                borderStyle: 'solid',
                 borderColor: '#000',
                 ':active': {
                     bgColor: '$orange400',

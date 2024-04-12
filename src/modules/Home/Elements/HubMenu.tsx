@@ -1,10 +1,12 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { CustomButtonIcon } from "../Common/CustomButtonIcon";
+import { CustomButtonIcon } from "../../Common/CustomButtonIcon";
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Menu, MenuItem, MenuItemLabel, Pressable } from "@gluestack-ui/themed";
-import { StyleSxProps } from "../../constants/layout";
+import { StyleSxProps } from "../../../constants/layout";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { HomeTabRootStackList } from "../../routes/HomeTab";
+import { HomeTabRootStackList } from "../../../routes/HomeTab";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ParamListBase } from "@react-navigation/native";
 
 type MenuListItemType = {
     label: string;
@@ -23,10 +25,12 @@ const menuList: MenuListItemType[] = [
 ];
 
 type HubMenuType = {
-    navigation: StackNavigationProp<HomeTabRootStackList, 'HomeScreen'>;
+    navigator: NativeStackNavigationProp<ParamListBase, string, undefined>;
 };
 
-export const HubMenu: React.FC<HubMenuType> = ({ navigation }) => {
+export const HubMenu: React.FC<HubMenuType> = ({ navigator }) => {
+    const navigation = navigator as StackNavigationProp<HomeTabRootStackList, 'HomeScreen'>;
+    
     const onSelectChange = (keys: 'all' | Set<string | number>) => {
         if (keys === 'all')
             return;
@@ -82,7 +86,6 @@ const styles = {
         height: 40,
         borderWidth: 1,
         borderColor: '$black',
-        // borderStyle: 'solide',
 
         ':active': {
             bgColor: '$info500',

@@ -10,6 +10,14 @@ export type CreateAccountType = {
     role: UserRoleType;
 };
 
+export type UpdateProfileType = {
+    nickname: string;
+    avatar: ImageOrVideo | null;
+    isEmailNotify: boolean;
+    country: string;
+    role: UserRoleType;
+};
+
 export type GoogleUserResponse = {
     email: string;
     familyName: string | null;
