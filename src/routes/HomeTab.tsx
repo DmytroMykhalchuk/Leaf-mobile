@@ -39,7 +39,8 @@ const Screen = createNativeStackNavigator<HomeTabRootStackList>();
 export const HomeTab = () => {
     return (
         <Screen.Navigator
-            initialRouteName='ProfileEditScreen'
+            initialRouteName='HomeScreen'
+            // initialRouteName='ProfileEditScreen'
             screenOptions={{
                 autoHideHomeIndicator: false,
                 headerShown: true,
@@ -59,6 +60,7 @@ export const HomeTab = () => {
                 name='ProfileScreen'
                 component={ProfileScreen}
                 options={{
+                    animation:'slide_from_right',
                     header: (props) => <AppHomeHeader
                         title='Profile'
                         RightSection={<HeaderRightButton navigator={props.navigation} />}

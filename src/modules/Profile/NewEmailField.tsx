@@ -9,9 +9,10 @@ import { requestChangeEmail } from "../../store/user/userReducer";
 
 type NewEmailFieldType = {
     toggleSendedCode: () => void;
+    changeEmail: (email: string) => void;
 };
 
-export const NewEmailField: React.FC<NewEmailFieldType> = ({ toggleSendedCode }) => {
+export const NewEmailField: React.FC<NewEmailFieldType> = ({ toggleSendedCode, changeEmail }) => {
     const dispatch: any = useDispatch();
 
     const [isActivatedTimer, setIsActivatedTimer] = useState(false);
@@ -24,6 +25,7 @@ export const NewEmailField: React.FC<NewEmailFieldType> = ({ toggleSendedCode })
         dispatch(requestChangeEmail(email))
         setIsActivatedTimer(true);
         toggleSendedCode();
+        changeEmail(email);
     };
 
     const deactivateTimer = () => setIsActivatedTimer(false);

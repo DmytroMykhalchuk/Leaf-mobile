@@ -13,7 +13,6 @@ import { StateEmailField } from "../Fields/StateEmailField";
 
 type EditAccountType = {
     values: {
-        email: string;
         name: string;
         country: string;
         role: string;
@@ -29,12 +28,13 @@ type EditAccountType = {
     isEmailVerified: boolean;
     handleChange: any;
     onChangeAvatar: (avatar: ImageOrVideo) => void;
-    onNavigateChangeEmail: (email: string) => void;
+    onNavigateChangeEmail: () => void;
+    profileEmail:string
 };
 
-export const EditAccount: React.FC<EditAccountType> = ({ handleChange, values, errors, onNavigateChangeEmail, onChangeAvatar }) => {
+export const EditAccount: React.FC<EditAccountType> = ({ handleChange, values, errors, onNavigateChangeEmail, onChangeAvatar,profileEmail }) => {
     const onOpenEmailConfirming = () => {
-        onNavigateChangeEmail(values.email);
+        onNavigateChangeEmail();
     };
     
     return (
@@ -56,7 +56,7 @@ export const EditAccount: React.FC<EditAccountType> = ({ handleChange, values, e
                 />
 
                 <StateEmailField
-                    email={values.email}
+                    email={profileEmail}
                     onNavigateChangeEmail={onOpenEmailConfirming}
                 />
 

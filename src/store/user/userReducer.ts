@@ -137,14 +137,15 @@ export const updateProfile = (user: UpdateProfileType, navigateBack: Function): 
    };
 };
 
-export const verifyEmailCode = (email: string, code: number, successHandler: Function): ThunksTypes => {
+export const verifyEmailCode = (code: number, wrongHandler: Function, successHandler: Function): ThunksTypes => {
    return async (dispatch) => {
       dispatch(actions.toggleFetching());
-      const response = await authApi.verifyEmailCode(email, code);
+      const response = await userApi.verifyEmailCode(code);
 
-      if (response.code === 200) {
-         dispatch(initProfile(response.data));
+      if (response?.code === 200) {
          successHandler();
+      } else if (response?.code == 400) {
+         wrongHandler();
       }
 
       dispatch(actions.toggleFetching());
@@ -165,7 +166,7 @@ export const requestChangeEmail = (email: string): ThunksTypes => {
    };
 };
 
-export const confirmChangeEmailCode = (code: string, email: string, successHandler: Function): ThunksTypes => {
+export const confirmChangeEmailCode = (code: string, email: string, wrongCodeHandler: Function, successHandler: Function): ThunksTypes => {
    return async (dispatch) => {
       dispatch(actions.toggleFetching());
 
@@ -174,10 +175,38 @@ export const confirmChangeEmailCode = (code: string, email: string, successHandl
       if (response?.code === 200) {
          dispatch(actions.setEmail(email));
          successHandler();
+      } else if (response?.code === 400) {
+         wrongCodeHandler();
       }
 
       dispatch(actions.toggleFetching());
    };
 };
+
+export const changeEmailProvider = (email: string, providerId: string, successHandler: Function): ThunksTypes => {
+   return async (dispatch) => {
+      const providerName = 'google';
+      
+      dispatch(actions.toggleFetching());
+
+      const response = await userApi.changeEmailProvider(providerId, providerName, email);
+
+      console.log(email,providerId)
+      if (response?.code === 200) {
+         dispatch(actions.setEmail(email));
+         successHandler();
+      }
+
+      dispatch(actions.toggleFetching());
+   };
+};
+
+export const requestEmailCode = (email: string): ThunksTypes => {
+   return async () => {
+      userApi.requestEmailCode();
+   };
+};
+
+
 
 export default userReducer;

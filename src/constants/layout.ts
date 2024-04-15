@@ -8,12 +8,14 @@ export type StyleSxProps = { [key: string]: Partial<SxProps<StyleProp<ViewStyle>
 
 type ProfileMenuListType = {
     label: string;
-    path: 'ProfileEditScreen'
+    path: 'ProfileEditScreen';
+    iconName: string;
 }[];
 
 export const profileMenuList: ProfileMenuListType = [
     {
         label: 'Edit profile',
         path: 'ProfileEditScreen',
+        iconName: 'account-edit-outline',
     },
 ];

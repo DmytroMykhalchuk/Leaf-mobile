@@ -11,7 +11,7 @@ import { EmailConfirmFooter } from "../modules/Auth/Elements/EmailConfirmFooter"
 import { ScreenStackProps } from "react-native-screens";
 import { HomeTabRootStackList } from "../routes/HomeTab";
 import { StackScreenProps } from "@react-navigation/stack";
-import { confirmChangeEmailCode, verifyEmailCode } from "../store/user/userReducer";
+import { changeEmailProvider, confirmChangeEmailCode, verifyEmailCode } from "../store/user/userReducer";
 import { GoogleUserResponse } from "../store/auth/authTypes";
 import { EmailField } from "../modules/Form/Fields/EmailField";
 import { NewEmailField } from "../modules/Profile/NewEmailField";
@@ -22,31 +22,42 @@ export const ProfileNewEmailScreen: React.FC<ProfileNewEmailScreenType> = ({ nav
     const dispatch: any = useDispatch();
 
     const [isSendedCode, setIsSendedCode] = useState(false);
+    const [isWrongCode, setIsWrongCode] = useState(false);
 
     const [email, setEmail] = useState('');
 
-    const toggleSendedCode = () => setIsSendedCode(true);
+    const changeEmail = (email: string) => {
+        setEmail(email);
+    };
 
+    const toggleSendedCode = () => {
+        setIsSendedCode(true);
+    };
 
     const successHandler = () => {
         navigation.goBack();
     };
 
     const handleGoogleUser = (user: GoogleUserResponse) => {
-        // successHandler()
+        dispatch(changeEmailProvider(user.email, user.id, successHandler));
+    };
+
+    const wrongCodeHandler = () => {
+        setIsWrongCode(true);
     };
 
     const verifyCode = (code: string) => {
-        dispatch(confirmChangeEmailCode(code, email, successHandler));
+        isWrongCode && setIsWrongCode(true);
+        dispatch(confirmChangeEmailCode(code, email, wrongCodeHandler, successHandler));
     };
 
     return (
         <VStack space='md' sx={styles.wrapper}>
             <VStack width={'100%'}>
                 <Heading textAlign="left">Input new email</Heading>
-                <NewEmailField toggleSendedCode={toggleSendedCode} />
+                <NewEmailField toggleSendedCode={toggleSendedCode} changeEmail={changeEmail} />
             </VStack>
-            <EmailConfirmBody isInputAvailable={isSendedCode} verifyCode={verifyCode} />
+            <EmailConfirmBody isInputAvailable={isSendedCode} verifyCode={verifyCode} isWrongCode={isWrongCode} />
             <EmailConfirmFooter handleGoogleUser={handleGoogleUser} />
         </VStack>
     );

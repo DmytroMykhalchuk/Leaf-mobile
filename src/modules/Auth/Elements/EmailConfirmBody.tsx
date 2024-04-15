@@ -8,9 +8,10 @@ import { useState } from 'react';
 type EmailConfirmBodyType = {
     isInputAvailable: boolean;
     verifyCode: (code: string) => void;
+    isWrongCode: boolean;
 };
 
-export const EmailConfirmBody: React.FC<EmailConfirmBodyType> = ({ isInputAvailable, verifyCode }) => {
+export const EmailConfirmBody: React.FC<EmailConfirmBodyType> = ({ isInputAvailable, verifyCode, isWrongCode }) => {
     const [code, setCode] = useState('');
 
     const onChangeCode = (code: string) => setCode(code.replace(/[^0-9]/g, ''));
@@ -22,10 +23,11 @@ export const EmailConfirmBody: React.FC<EmailConfirmBodyType> = ({ isInputAvaila
     const isDisabledConfirmation = code.length != authConfig.emailConfirmLength;
     const isDisabledInput = !isInputAvailable;
 
+    const wrongCodeMessage = isWrongCode ? 'Wrong code' : undefined;
 
     return (
         <VStack width={'100%'} space='md'>
-            <UIFormControl label="Code" >
+            <UIFormControl label="Code" error={wrongCodeMessage} >
                 <Input sx={styles.input} isDisabled={isDisabledInput}>
                     <InputField
                         onChangeText={onChangeCode}

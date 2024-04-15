@@ -50,6 +50,10 @@ export const EditAccountForm: React.FC<EditAccountFormType> = ({ onNavigateChang
     setAvatar(avatar);
   };
 
+  const navigateToChangeEmail = () => {
+    profile?.email && onNavigateChangeEmail(profile?.email);
+  };
+
   const validation = (values: FormValuesType) => {
     const errors = {} as FormErrorType;
 
@@ -113,7 +117,8 @@ export const EditAccountForm: React.FC<EditAccountFormType> = ({ onNavigateChang
               isEmailVerified={isEmailVerified}
               handleChange={handleChange}
               onChangeAvatar={onChangeAvatar}
-              onNavigateChangeEmail={onNavigateChangeEmail}
+              onNavigateChangeEmail={navigateToChangeEmail}
+              profileEmail={profile?.email as string}
             />
             <View>
               <Heading px={'$3'} mb={4}>Config</Heading>

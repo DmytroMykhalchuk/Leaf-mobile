@@ -1,12 +1,13 @@
 import { DotsIcon } from '../../Icons/DotsIcon';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { HomeTabRootStackList } from '../../../routes/HomeTab';
-import { Menu, MenuItem, MenuItemLabel } from '@gluestack-ui/themed';
+import { HStack, Menu, MenuItem, MenuItemLabel } from '@gluestack-ui/themed';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ParamListBase } from '@react-navigation/native';
 import { profileMenuList } from '../../../constants/layout';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TouchableOpacity } from 'react-native';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 type HeaderRightButtonType = {
     navigator: NativeStackNavigationProp<ParamListBase, string, undefined>;
@@ -42,9 +43,12 @@ export const HeaderRightButton: React.FC<HeaderRightButtonType> = ({ navigator }
                 {
                     profileMenuList.map((item) => (
                         <MenuItem key={item.label} textValue={item.label}>
-                            <MenuItemLabel size='sm' ml={8}>
-                                {item.label}
-                            </MenuItemLabel>
+                            <HStack alignItems='center'>
+                                <MCIcon name={item.iconName} size={26} />
+                                <MenuItemLabel size='sm' ml={8} fontSize={16}>
+                                    {item.label}
+                                </MenuItemLabel>
+                            </HStack>
                         </MenuItem>
                     ))
                 }

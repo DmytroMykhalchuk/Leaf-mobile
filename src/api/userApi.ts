@@ -1,4 +1,3 @@
-import { updateProfile } from "../store/auth/authReducer";
 import { UpdateProfileType } from "../store/auth/authTypes";
 import { instance } from "./api";
 
@@ -61,4 +60,39 @@ export const userApi = {
                 return error?.response?.data;
             });
     },
+
+    async changeEmailProvider(providerId: string, providerName: string, email: string) {
+        return instance.post('/profile/change-email-provider', {
+            provider_id: providerId,
+            provider_name: providerName,
+            email: email,
+        })
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                console.log(error);
+                return error?.response?.data;
+            })
+    },
+
+    async requestEmailCode() {
+        return instance.post('/profile/request-email-code')
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
+
+    async verifyEmailCode(code: number) {
+        return instance.post('/profile/confirm-current-email', { code })
+            .then(response => {
+                return response.data;
+            })
+            .catch(error => {
+                return error?.response?.data;
+            });
+    }
 };
